@@ -1,0 +1,292 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  passwordHash String
+  name         String
+  role         String       @default("OWNER") // OWNER, ADMIN, MANAGER, STAFF
+  businessId   String?
+  business     Business?    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  resetTokens  ResetToken[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([businessId])
+}
+
+model ResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Business {
+  id                  String                @id @default(cuid())
+  name                String
+  type                String                @default("Retail & E-commerce")
+  country             String                @default("India")
+  currency            String                @default("INR")
+  phone               String?
+  email               String?
+  address             String?
+  logo                String?
+  plan                String                @default("FREE") // FREE, STARTER, BUSINESS, PRO
+  onboardingCompleted Boolean               @default(false)
+  aiPersona           String                @default("Helpful sales associate who provides styling advice, checks stock, and helps customers buy.")
+  aiSystemRules       String                @default("1. Always check live stock before confirming orders.\n2. Explain features clearly.\n3. Offer draft order creation for quick checkout.")
+  users               User[]
+  customers           Customer[]
+  products            Product[]
+  orders              Order[]
+  leads               Lead[]
+  conversations       Conversation[]
+  followUps           FollowUpOpportunity[]
+  teamMembers         TeamMember[]
+  aiActionLogs        AIActionLog[]
+  subscriptions       Subscription[]
+  payments            Payment[]
+  automations         Automation[]
+  notifications       Notification[]
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+}
+
+model Subscription {
+  id                   String    @id @default(cuid())
+  businessId           String
+  business             Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  plan                 String    @default("FREE") // FREE, STARTER, BUSINESS, PRO
+  status               String    @default("ACTIVE") // ACTIVE, CANCELLED, PAST_DUE
+  currentPeriodStart   DateTime  @default(now())
+  currentPeriodEnd     DateTime
+  cancelAtPeriodEnd    Boolean   @default(false)
+  externalId           String?   // Stripe or Razorpay sub ID
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([businessId])
+}
+
+model Customer {
+  id              String         @id @default(cuid())
+  businessId      String
+  business        Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name            String
+  phone           String
+  email           String?
+  company         String?
+  tags            String         @default("[]")
+  status          String         @default("NEW") // LEAD, NEW, ACTIVE, RETURNING, VIP, INACTIVE
+  totalOrders     Int            @default(0)
+  totalSpend      Float          @default(0)
+  lastInteraction DateTime       @default(now())
+  notes           String?
+  orders          Order[]
+  conversations   Conversation[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([businessId])
+}
+
+model Product {
+  id                String      @id @default(cuid())
+  businessId        String
+  business          Business    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name              String
+  sku               String
+  category          String
+  price             Float
+  discountPrice     Float?
+  stock             Int         @default(0)
+  lowStockThreshold Int         @default(5)
+  imageUrl          String?
+  description       String?
+  status            String      @default("ACTIVE") // ACTIVE, DRAFT, ARCHIVED
+  orderItems        OrderItem[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([businessId])
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  businessId      String
+  business        Business    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerId      String?
+  customer        Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  totalAmount     Float
+  discountAmount  Float       @default(0)
+  paymentStatus   String      @default("PENDING") // PENDING, PAID, FAILED, REFUNDED
+  status          String      @default("PENDING") // PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+  shippingAddress String?
+  notes           String?
+  items           OrderItem[]
+  payments        Payment[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([businessId])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName String
+  sku         String
+  quantity    Int
+  unitPrice   Float
+  totalPrice  Float
+
+  @@index([orderId])
+}
+
+model Payment {
+  id          String    @id @default(cuid())
+  businessId  String
+  business    Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  orderId     String?
+  order       Order?    @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  amount      Float
+  currency    String    @default("INR")
+  status      String    @default("PENDING") // PENDING, SUCCESS, FAILED
+  method      String    @default("UPI") // UPI, CARD, NETBANKING, COD
+  referenceId String?   // Transaction ID from gateway
+  createdAt   DateTime  @default(now())
+
+  @@index([businessId])
+}
+
+model Lead {
+  id                String    @id @default(cuid())
+  businessId        String
+  business          Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name              String
+  phone             String
+  email             String?
+  source            String    @default("WhatsApp")
+  interestedProduct String?
+  stage             String    @default("NEW") // NEW, CONTACTED, INTERESTED, NEGOTIATION, WON, LOST
+  value             Float     @default(0)
+  notes             String?
+  nextFollowUp      DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([businessId])
+}
+
+model Conversation {
+  id            String    @id @default(cuid())
+  businessId    String
+  business      Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerId    String?
+  customer      Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerName  String
+  customerPhone String
+  mode          String    @default("AI_MODE") // AI_MODE, HUMAN_MODE
+  unreadCount   Int       @default(0)
+  lastMessage   String?
+  lastMessageAt DateTime  @default(now())
+  messages      Message[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([businessId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         String // "CUSTOMER", "AI", "HUMAN"
+  content        String
+  timestamp      DateTime     @default(now())
+  status         String       @default("DELIVERED")
+
+  @@index([conversationId])
+}
+
+model FollowUpOpportunity {
+  id               String   @id @default(cuid())
+  businessId       String
+  business         Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerId       String?
+  customerName     String
+  customerPhone    String
+  potentialValue   Float
+  reason           String
+  suggestedMessage String
+  status           String   @default("PENDING") // PENDING, SENT, DISMISSED
+  createdAt        DateTime @default(now())
+
+  @@index([businessId])
+}
+
+model TeamMember {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name       String
+  email      String
+  role       String   @default("STAFF") // OWNER, ADMIN, MANAGER, STAFF
+  status     String   @default("ACTIVE")
+  createdAt  DateTime @default(now())
+
+  @@index([businessId])
+}
+
+model AIActionLog {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  actionType  String
+  description String
+  entityType  String?
+  entityId    String?
+  createdAt   DateTime @default(now())
+
+  @@index([businessId])
+}
+
+model Automation {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  title       String
+  triggerType String   // "NEW_INQUIRY", "ORDER_CREATED", "STOCK_LOW"
+  actionType  String   // "SEND_WHATSAPP", "NOTIFY_STAFF", "DISCOUNT_OFFER"
+  isEnabled   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([businessId])
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  title      String
+  message    String
+  type       String   @default("INFO") // INFO, WARNING, SUCCESS
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([businessId])
+}
