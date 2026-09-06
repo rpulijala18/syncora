@@ -120,7 +120,7 @@ export function Sidebar() {
           {!collapsed && (
             <div>
               <div className="font-bold text-white tracking-tight text-base flex items-center gap-1.5">
-                Syncora <span className="text-blue-400 font-semibold text-xs px-1.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20">PRO</span>
+                MarketHub <span className="text-blue-400 font-semibold text-xs px-1.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20">PRO</span>
               </div>
               <div className="text-[11px] text-slate-400 truncate max-w-[130px]">
                 {session?.businessName || "My Store"}

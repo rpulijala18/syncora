@@ -52,7 +52,7 @@ export default function OrderPayPage({ params }: { params: Promise<{ id: string 
             orderNumber={order?.orderNumber || "1082"}
             amount={order?.totalAmount || 2499}
             customerName={order?.customer?.name || "Customer"}
-            storeName={order?.business?.name || "Syncora Merchant Store"}
+            storeName={order?.business?.name || "MarketHub Merchant Store"}
             items={order?.items || []}
           />
         )}

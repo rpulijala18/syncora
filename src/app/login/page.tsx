@@ -50,7 +50,7 @@ export default function LoginPage() {
             <Logo size="lg" theme="light" />
           </Link>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-            Sign in to Syncora
+            Sign in to MarketHub
           </h1>
           <p className="text-xs text-slate-500">
             Access your store catalog, orders, and customer messages

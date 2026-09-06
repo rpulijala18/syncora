@@ -31,19 +31,19 @@ export default function LandingPage() {
 
   const faqs = [
     {
-      q: "How does Syncora connect to WhatsApp?",
-      a: "Syncora connects seamlessly to your official WhatsApp Business number via the Meta Cloud API. It automatically recognizes customer messages, checks your live catalog inventory, and replies instantly with prices, availability, and order confirmations.",
+      q: "How does MarketHub connect to WhatsApp?",
+      a: "MarketHub connects seamlessly to your official WhatsApp Business number via the Meta Cloud API. It automatically recognizes customer messages, checks your live catalog inventory, and replies instantly with prices, availability, and order confirmations.",
     },
     {
       q: "Can I take over the chat from the automated assistant?",
       a: "Yes, at any moment! The 3-column WhatsApp inbox allows you to switch between Automated Mode and Human Mode with a single click whenever you or your staff want to step in personally.",
     },
     {
-      q: "Does Syncora update stock automatically when an order is placed?",
+      q: "Does MarketHub update stock automatically when an order is placed?",
       a: "Yes. The instant an order is confirmed (either automatically on WhatsApp or manually by your team), your product inventory is immediately decremented, and low-stock alerts are triggered if stock dips below your threshold.",
     },
     {
-      q: "Do I need technical skills or coding to set up Syncora?",
+      q: "Do I need technical skills or coding to set up MarketHub?",
       a: "Not at all. You can set up your store name, add your first products, and start testing in under 3 minutes using our simple step-by-step setup wizard.",
     },
     {
@@ -121,7 +121,7 @@ export default function LandingPage() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Syncora combines your product catalog, orders, inventory, and customer chats in one simple dashboard.
+            MarketHub combines your product catalog, orders, inventory, and customer chats in one simple dashboard.
             Answer customer inquiries, check stock, and close orders automatically 24/7.
           </p>
 
@@ -168,7 +168,7 @@ export default function LandingPage() {
                 <div className="w-3 h-3 rounded-full bg-red-400" />
                 <div className="w-3 h-3 rounded-full bg-amber-400" />
                 <div className="w-3 h-3 rounded-full bg-emerald-400" />
-                <span className="text-xs text-slate-500 font-medium ml-2">Syncora Live Commerce View</span>
+                <span className="text-xs text-slate-500 font-medium ml-2">MarketHub Live Commerce View</span>
               </div>
               <div className="text-xs font-semibold text-slate-600 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -542,7 +542,7 @@ export default function LandingPage() {
             <div className="clean-card p-6 rounded-2xl bg-white border border-slate-200 flex flex-col justify-between">
               <div>
                 <h4 className="font-bold text-slate-900 text-lg">Free Tier</h4>
-                <p className="text-xs text-slate-500 mt-1">Perfect for trying out Syncora</p>
+                <p className="text-xs text-slate-500 mt-1">Perfect for trying out MarketHub</p>
                 <div className="my-5">
                   <span className="text-4xl font-extrabold text-slate-900">₹0</span>
                   <span className="text-xs text-slate-500 font-medium"> / month</span>
@@ -720,7 +720,7 @@ export default function LandingPage() {
             Ready to streamline your business and sell faster?
           </h2>
           <p className="text-blue-100 text-base max-w-2xl mx-auto">
-            Join hundreds of retail stores, Instagram sellers, and online brands growing their business with Syncora.
+            Join hundreds of retail stores, Instagram sellers, and online brands growing their business with MarketHub.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
             <Link
@@ -744,7 +744,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Logo size="sm" theme="light" />
-            <span>© 2026 Syncora Technologies Inc. All rights reserved.</span>
+            <span>© 2026 MarketHub Technologies Inc. All rights reserved.</span>
           </div>
 
           <div className="flex items-center gap-6 text-slate-600">

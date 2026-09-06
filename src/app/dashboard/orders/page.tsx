@@ -485,7 +485,7 @@ export default function OrdersPage() {
             {/* Print & Close */}
             <div className="flex items-center justify-between pt-4 border-t border-slate-800">
               <span className="text-[10px] text-slate-500">
-                Generated securely by Syncora Commerce
+                Generated securely by MarketHub Commerce
               </span>
               <div className="flex items-center gap-2">
                 <button

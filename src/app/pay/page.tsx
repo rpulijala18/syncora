@@ -49,7 +49,7 @@ export default function PayPage() {
             orderNumber={order?.orderNumber || "ORD-1082"}
             amount={order?.totalAmount || 2499}
             customerName={order?.customer?.name || "Customer"}
-            storeName={order?.business?.name || "Syncora Store"}
+            storeName={order?.business?.name || "MarketHub Store"}
             items={order?.items || []}
           />
         )}

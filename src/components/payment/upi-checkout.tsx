@@ -34,7 +34,7 @@ export function UPICheckout({
   amount,
   customerName = "Valued Customer",
   items = [],
-  storeName = "Syncora Merchant Store",
+  storeName = "MarketHub Merchant Store",
   onSuccess,
   isSubscription = false,
   planName = "Business",
@@ -198,7 +198,7 @@ export function UPICheckout({
 
         {/* Mobile Quick Intent Button */}
         <a
-          href={`upi://pay?pa=phonepe@ybl&am=${amount}&pn=Syncora&tn=Order-${orderNumber}`}
+          href={`upi://pay?pa=phonepe@ybl&am=${amount}&pn=MarketHub&tn=Order-${orderNumber}`}
           className="sm:hidden block w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-2"
         >
           <Smartphone className="w-4 h-4" />
@@ -244,7 +244,7 @@ export function UPICheckout({
 
         <div className="text-[10px] text-slate-400 flex items-center justify-center gap-1.5">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Official Syncora Payment Guarantee</span>
+          <span>Official MarketHub Payment Guarantee</span>
         </div>
       </div>
     </div>

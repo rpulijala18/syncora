@@ -14,7 +14,7 @@ export function Logo({
   size = "md",
   showText = true,
   className = "",
-  theme = "light",
+  theme = "dark",
   useImage = true,
 }: LogoProps) {
   const sizeMap = {
@@ -28,14 +28,14 @@ export function Logo({
 
   return (
     <div className={`flex items-center gap-2.5 select-none ${className}`}>
-      {/* Designed Logo Icon Box */}
+      {/* Logo Icon */}
       <div
-        className={`${current.box} rounded-xl bg-slate-950 border border-slate-800 shadow-sm flex items-center justify-center shrink-0 overflow-hidden relative group-hover:scale-105 transition-transform duration-200`}
+        className={`${current.box} rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 border border-blue-500/30 shadow-lg shadow-blue-600/20 flex items-center justify-center shrink-0 overflow-hidden relative transition-transform duration-200`}
       >
         {useImage ? (
           <img
             src="/logo.png"
-            alt="Syncora Brand Logo"
+            alt="MarketHub Logo"
             className="w-full h-full object-cover"
           />
         ) : (
@@ -57,14 +57,14 @@ export function Logo({
         )}
       </div>
 
-      {/* Unique Brand Wordmark */}
+      {/* Brand Wordmark */}
       {showText && (
         <div className="flex items-center gap-1.5 font-bold tracking-tight leading-none">
           <span className={theme === "light" ? "text-slate-900" : "text-white"}>
-            Syncora
+            MarketHub
           </span>
-          <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 border border-blue-200/80 px-1.5 py-0.5 rounded-md">
-            COMMERCE
+          <span className="text-[10px] font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 px-1.5 py-0.5 rounded-md">
+            PRO
           </span>
         </div>
       )}

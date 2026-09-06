@@ -14,7 +14,7 @@ export default function PublicPricingPage() {
       name: "Free",
       priceMonthly: 0,
       priceAnnual: 0,
-      description: "Best for exploring Syncora and solo setup",
+      description: "Best for exploring MarketHub and solo setup",
       features: [
         "Up to 50 customers in CRM",
         "50 orders / month",
@@ -214,7 +214,7 @@ export default function PublicPricingPage() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Logo size="sm" theme="light" />
-            <span>© 2026 Syncora Technologies Inc. All rights reserved.</span>
+            <span>© 2026 MarketHub Technologies Inc. All rights reserved.</span>
           </div>
 
           <div className="flex items-center gap-6 text-slate-600">

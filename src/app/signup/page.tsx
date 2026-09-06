@@ -59,7 +59,7 @@ export default function SignupPage() {
             <Logo size="lg" theme="light" />
           </Link>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-            Create your Syncora account
+            Create your MarketHub account
           </h1>
           <p className="text-xs text-slate-500">
             14-day free trial · No credit card required

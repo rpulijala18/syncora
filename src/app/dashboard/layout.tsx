@@ -4,7 +4,7 @@ import { Topbar } from "@/components/layout/topbar";
 import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata = {
-  title: "Syncora — Smart Business & WhatsApp Commerce Platform",
+  title: "MarketHub — Smart Business & WhatsApp Commerce Platform",
   description: "Manage customers, products, orders, and automated WhatsApp conversations from one synchronized workspace.",
 };
 
